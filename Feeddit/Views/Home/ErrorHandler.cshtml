@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "OOPS 404 Error - page not found";
+}
+
+@Styles.Render("~/Content/css")
+<title>@ViewBag.Title</title>
+<div class="container">
+    <div class="card card-body shadow col-lg-12 text-center mt-5">
+        <h1 style="font-size:100px;"><i class="far fa-sad-cry text-danger"></i></h1>
+        <hr />
+        <h2 class="text-danger font-weight-bold"><i class="fas fa-exclamation-triangle"></i> @ViewBag.Title</h2>
+        <hr />
+
+    </div>
+
+</div>
+

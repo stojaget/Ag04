@@ -1,0 +1,89 @@
+﻿@model Feeddit.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Login</title>
+        <style>
+            #login-div {
+                position: absolute;
+                left: 40%;
+                top: 40%;
+                border: 1px solid #ccc;
+                padding: 10px 10px;
+            }
+
+            .field-validation-error {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="login-div">*@
+<div class="card shadow">
+    <div class="card-header">
+        @if (TempData["alert"] != null)
+        {
+            <div class="alert alert-@TempData["aType"] alert-sm text-center container topalert">
+                @TempData["alert"]
+            </div>
+        }
+    </div>
+    @using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
+    {
+        <div class="table-responsive card-body align-center">
+            <table class="table table-md" style="width:60%;position:center;">
+                <thead>
+                    <tr>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Username:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.UserName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessageFor(model => model.UserName)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Password:</td>
+                        <td>@Html.EditorFor(model => model.Password)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessageFor(model => model.Password)</td>
+                    </tr>
+                   
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" name="name" value="Login" class="btn btn-lang btn-sm" />
+                            @*<input type="reset" name="name" value="Clear" class="btn btn-lang btn-sm" />*@
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    }
+        
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@*</body>
+    </html>*@
+
+

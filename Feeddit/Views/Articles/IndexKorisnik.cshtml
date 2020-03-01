@@ -1,0 +1,99 @@
+﻿@*@model IEnumerable<Feeddit.Models.Article>*@
+@model PagedList.IPagedList<Feeddit.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Articles";
+}
+@*section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("IndexAuto", "Articles")',
+                minLength: 3
+            });
+        });
+    </script>
+
+        }*@
+
+@using (Html.BeginForm("DeleteSelected", "Articles", FormMethod.Post))
+{
+   
+        <div class="card-header">
+            @*@Html.ActionLink("Delete selected", "DeleteSelected", null, new { @class = "btn btn-lang btn-sm" })*@
+            <div class="col-md-10 col-12 text-center">
+                <button type="submit" value="" class="btn btn-lang btn-lg" onclick="return confirm('Da li ste sigurni?')"><i class="btn btn-lang btn-sm"></i> Delete selected</button>
+                <br /><br />
+            </div>
+        </div>
+   
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            <div class="table-responsive card-body">
+                <table id="DataTable" class="table  dTable table-md" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Title)*@
+                                @Html.ActionLink("Title", "Delete", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                ArticleUrl
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Author)*@
+                                @Html.ActionLink("Author", "Delete", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Votes)*@
+                                @Html.ActionLink("Votes", "Delete", new { sortOrder = ViewBag.VotesSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+
+                            <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var article in ViewBag.ListArticle)
+                        {
+                            <tr>
+                                <td>
+                                    @article.Title
+                                </td>
+                                <td>
+                                    @article.ArticleUrl
+                                </td>
+                                <td>
+                                    @article.Author
+                                </td>
+                                <td>
+                                    @article.Votes
+                                </td>
+                                <td><input type="checkbox" name="ID" value="@article.ID" class="custom-checkbox chkCheckBoxId" /></td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+}
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @*@Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+
+
+    @Html.PagedListPager(Model, page => Url.Action("IndexKorisnik", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), PagedListRenderOptions.MinimalWithPageCountText)
+
+

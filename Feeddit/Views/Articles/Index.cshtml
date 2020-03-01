@@ -1,0 +1,109 @@
+﻿@*@model IEnumerable<Feeddit.Models.Article>*@
+@model PagedList.IPagedList<Feeddit.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Articles";
+}
+@*section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("IndexAuto", "Articles")',
+                minLength: 3
+            });
+        });
+    </script>
+
+        }*@
+
+<p>
+
+    @using (Html.BeginForm("Index", "Articles", FormMethod.Get))
+    {
+    <p>
+        @*Title: @Html.TextBox("SearchString") <br />*@
+        Title:   @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Filter" class="btn btn-lang btn-sm" />
+    </p>
+    }
+    <div class="card shadow">
+        <div class="card-header text-center">
+            @Html.ActionLink("Add new article", "Create", null, new { @class = "btn btn-lang btn-lg" })
+            <div class="col-md-2 col-12 text-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            <div class="table-responsive card-body">
+                <table class="table  dTable table-md" style="width:100%">
+                    <tr>
+                        <th>
+
+                            @Html.ActionLink("Votes", "Index", new { sortOrder = ViewBag.VotesSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+                        <th>
+                            ArticleUrl
+                        </th>
+                        <th>
+
+                            @Html.ActionLink("Headline", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+
+                        <th>
+
+                            @Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.CurrentFilter })
+                        </th>
+
+                        @*<th></th>*@
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.Votes)
+                            </td>
+                            <td>
+                                @Html.ActionLink(@item.ArticleUrl, "Details", "Articles", new { id = long.Parse(item.ID.ToString()) }, null)
+
+
+                            </td>
+                            <td>
+                                @Html.ActionLink(@item.Title, "Details", "Articles", new { id = long.Parse(item.ID.ToString()) }, null)
+
+                            </td>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+
+                            @*<td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                                </td>*@
+                        </tr>
+
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @*@Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), PagedListRenderOptions.MinimalWithPageCountText)

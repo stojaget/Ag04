@@ -1,0 +1,46 @@
+﻿@*@if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOut", "Login"))
+        {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @Html.ActionLink("Welcome, " + @Session["userName"].ToString() + "!", "Index", "Articles", routeValues: null, htmlAttributes: new { title = "Articles" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+        </ul>
+        }
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>@Html.ActionLink("Log in", "Index", "¸Login")</li>
+        </ul>
+    }*@
+
+@if (Session["UserID"] != null)
+{
+    using (Html.BeginForm("LogOut", "Login"))
+    {
+        @Html.AntiForgeryToken()
+    <ul class="nav navbar-nav navbar-left">
+        <li>
+            @Html.ActionLink("Welcome, " + @Session["userName"].ToString() + "!", "IndexKorisnik", "Articles", routeValues: null, htmlAttributes: new { title = "Articles" })
+        </li>
+        @*<li>@Html.ActionLink("Log in", "Index", "¸Login")</li>*@
+    </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            @*<li>
+                @Html.ActionLink("Welcome, " + @Session["userName"].ToString() + "!", "Index", "Articles", routeValues: null, htmlAttributes: new { title = "Articles" })
+            </li>*@
+            <li>
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            @*<a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>*@
+            </li>
+        </ul>
+    }
+}
+
