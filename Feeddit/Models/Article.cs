@@ -35,7 +35,7 @@ namespace Feeddit.Models
 
         public User User { get; set; }
 
-        public virtual Vote Vote { get; set; }
+       
     }
 
 

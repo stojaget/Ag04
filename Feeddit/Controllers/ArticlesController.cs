@@ -103,16 +103,16 @@ namespace Feeddit.Controllers
             //    return View();
             //}
             var userID = Convert.ToInt32(Session["UserID"]);
-            
+
             string userRole = Session["Rola"].ToString();
-           
-               var articles = from m in db.Articles
+
+            var articles = from m in db.Articles
                            select m;
-            
+
             if (!userRole.Contains("Admin"))
             {
-              articles = from m in db.Articles.Where(m => m.UserID == userID) select m;
-              
+                articles = from m in db.Articles.Where(m => m.UserID == userID) select m;
+
             }
 
             if (!String.IsNullOrEmpty(searchString))
@@ -354,10 +354,11 @@ namespace Feeddit.Controllers
             var articles = from m in db.Articles
                            select m;
             return RedirectToAction("IndexKorisnik");
-            
+
         }
 
 
+   
         protected override void Dispose(bool disposing)
         {
             if (disposing)

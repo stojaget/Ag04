@@ -39,7 +39,7 @@ namespace Feeddit.Models
             get;
             set;
         }
-        public virtual Vote Vote { get; set; }
+     
 
     }
 }

@@ -53,12 +53,12 @@
       <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\ArticleVotingController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\202003012042308_userchanges.designer.cs">
       <DependentUpon>202003012042308_userchanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003020910410_cleanup_Vote.cs" />
+    <Compile Include="Migrations\202003020910410_cleanup_Vote.designer.cs">
+      <DependentUpon>202003020910410_cleanup_Vote.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\CustomAuthorize.cs" />
@@ -245,6 +250,7 @@
     <Compile Include="Models\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\ArticleVoting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\all.min.css" />
@@ -319,6 +325,9 @@
     <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\feeddit - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\feeddit - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\feeddit - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -373,6 +382,8 @@
     <Content Include="Views\ErrorHandler\Error.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Articles\IndexKorisnik.cshtml" />
+    <Content Include="Views\ArticleVoting\Index.cshtml" />
+    <Content Include="Views\ArticleVoting\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -405,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003012042308_userchanges.resx">
       <DependentUpon>202003012042308_userchanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003020910410_cleanup_Vote.resx">
+      <DependentUpon>202003020910410_cleanup_Vote.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

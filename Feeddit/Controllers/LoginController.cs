@@ -42,7 +42,7 @@ namespace Feeddit.Controllers
                     Session["userName"] = userDetails.UserName;
                     Session["Rola"] = userDetails.Role;
                     logger.Info("User " + userDetails.UserName + " log in, date: " + DateTime.Now);
-                    return RedirectToAction("Index", "Articles");
+                    return RedirectToAction("Index", "ArticleVoting");
                 }
             }
         }

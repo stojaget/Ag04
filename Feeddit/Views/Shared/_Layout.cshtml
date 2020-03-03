@@ -51,7 +51,7 @@
  
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 
@@ -64,7 +64,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
 
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Feeddit", "Index", "Home", null, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Feeddit", "Index", "ArticleVoting", null, new { @class = "navbar-brand" })</li>
 
             </ul>
             @Html.Partial("_LoginPartial")

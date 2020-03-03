@@ -4,6 +4,8 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -23,6 +25,17 @@ namespace Feeddit
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
+            //{
+            //    var configuration = new Configuration();
+            //    configuration.TargetDatabase = new DbConnectionInfo(
+            //        "Server=tcp:bebach.database.windows.net,1433;Database=feeddit;Persist Security Info=False;User ID=dbosak84;Password=Darkobosak2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+            //        "System.Data.SqlClient");
+
+            //    var migrator = new DbMigrator(configuration);
+            //    migrator.Update();
+            //}
         }
 
         protected void Application_Error(object sender, EventArgs e)

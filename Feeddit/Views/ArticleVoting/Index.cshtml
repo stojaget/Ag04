@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<Feeddit.Models.Article>*@
-@model PagedList.IPagedList<Feeddit.Models.Article>
+@model PagedList.IPagedList<Feeddit.ViewModel.ArticleVoting>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -27,7 +27,7 @@
             @TempData["alert"]
         </div>
     }
-    @using (Html.BeginForm("Index", "Articles", FormMethod.Get))
+    @using (Html.BeginForm("Index", "ArticleVoting", FormMethod.Get))
     {
     <p>
         @*Title: @Html.TextBox("SearchString") <br />*@
@@ -37,7 +37,7 @@
     }
     <div class="card shadow">
         <div class="card-header text-center">
-            @Html.ActionLink("Add new article", "Create", null, new { @class = "btn btn-lang btn-lg" })
+            @Html.ActionLink("Add new article", "Create", "Articles", new { @class = "btn btn-lang btn-lg" })
             <div class="col-md-2 col-12 text-right">
 
             </div>
@@ -67,7 +67,7 @@
                         </th>
                         <th></th>
                         <th></th>
-                       
+
                     </tr>
 
                     @foreach (var item in Model)
@@ -78,25 +78,35 @@
                                 @Html.DisplayFor(modelItem => item.Votes)
                             </td>
                             <td>
-                                @Html.ActionLink(@item.ArticleUrl, "Details", "Articles", new { id = long.Parse(item.ID.ToString()) }, null)
+                                @Html.ActionLink(@item.ArticleUrl, "Details", "Articles", new { id = long.Parse(item.ArticleID.ToString()) }, null)
 
 
                             </td>
                             <td>
-                                @Html.ActionLink(@item.Title, "Details", "Articles", new { id = long.Parse(item.ID.ToString()) }, null)
+                                @Html.ActionLink(@item.Title, "Details", "Articles", new { id = long.Parse(item.ArticleID.ToString()) }, null)
 
                             </td>
                             <td>
 
                                 @Html.DisplayFor(modelItem => item.Author)
                             </td>
-                          
-                            @*<td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID })
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            <td>
+                                @if (item.VoteNumber == 0)
+                                {
+                                    <button type="button" class="btn btn-default" value="Glasaj" onclick="location.href='@Url.Action("Upvote", "ArticleVoting", new { id = long.Parse(item.ArticleID.ToString()) })'">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </button>
+                                }
+                            </td>
+                            <td>
+                                @if (item.VoteNumber == 1)
+                                {
+                                    <button type="button" class="btn btn-default" value="Glasaj" onclick="location.href='@Url.Action("Downvote", "ArticleVoting", new { id = long.Parse(item.ArticleID.ToString()) })'">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </button>
+                                }
+                            </td>
 
-                                </td>*@
                         </tr>
 
                     }
@@ -109,7 +119,7 @@
 
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @*@Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
-
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), PagedListRenderOptions.MinimalWithPageCountText)
+
+
+
