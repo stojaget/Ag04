@@ -328,6 +328,7 @@
     <None Include="Properties\PublishProfiles\feeddit - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\feeddit - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\feeddit - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\web obicni.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
