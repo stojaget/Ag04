@@ -24,7 +24,7 @@ namespace Feeddit.Controllers
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.AuthorSortParm = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
             ViewBag.VotesSortParm = String.IsNullOrEmpty(sortOrder) ? "votes_desc" : "";
-            
+
             FeedditContext context = new FeedditContext();
 
             List<ArticleVoting> ArticleVotingVM = new List<ArticleVoting>();
@@ -84,26 +84,30 @@ namespace Feeddit.Controllers
             //    return View();
             //}
 
-          
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                votingList = votingList.Where(s => s.Title.Contains(searchString));
-
+                //votingList = votingList.Where(s => s.Title.Contains(searchString));
+                ArticleVotingVM = ArticleVotingVM.Where(s => s.Title.Contains(searchString)).ToList();
             }
             switch (sortOrder)
             {
                 case "title_desc":
-                    votingList = votingList.OrderByDescending(s => s.Title);
+                    //votingList = votingList.OrderByDescending(s => s.Title);
+                    ArticleVotingVM = ArticleVotingVM.OrderByDescending(s => s.Title).ToList();
                     break;
                 case "author_desc":
-                    votingList = votingList.OrderByDescending(s => s.Author);
+                    //votingList = votingList.OrderByDescending(s => s.Author);
+                    ArticleVotingVM = ArticleVotingVM.OrderByDescending(s => s.Author).ToList();
                     break;
                 case "votes_desc":
-                    votingList = votingList.OrderByDescending(s => s.Votes);
+                    //votingList = votingList.OrderByDescending(s => s.Votes);
+                    ArticleVotingVM = ArticleVotingVM.OrderByDescending(s => s.Votes).ToList();
                     break;
                 default:
-                    votingList = votingList.OrderBy(s => s.Title);
+                    //votingList = votingList.OrderBy(s => s.Title);
+                    ArticleVotingVM = ArticleVotingVM.OrderBy(s => s.Title).ToList();
                     break;
             }
             int pageSize = 5;
@@ -113,10 +117,10 @@ namespace Feeddit.Controllers
 
         }
 
-       
+
         public ActionResult Upvote(long id)
         {
-        
+
             using (FeedditContext db = new FeedditContext())
             {
                 int UserID = Convert.ToInt32(Session["UserID"]);
@@ -145,10 +149,10 @@ namespace Feeddit.Controllers
             return RedirectToAction("Index");
         }
 
-     
+
         public ActionResult Downvote(long id)
         {
-           
+
             using (FeedditContext db = new FeedditContext())
             {
                 int UserID = Convert.ToInt32(Session["UserID"]);
@@ -211,7 +215,7 @@ namespace Feeddit.Controllers
                     article.UserID = UserID;
                     article.DateCreated = DateTime.Now;
                     db.Articles.Add(article);
-                  
+
                     db.SaveChanges();
                     // mora se za glas kreirati novi zapis
                     Vote vote = new Vote();
